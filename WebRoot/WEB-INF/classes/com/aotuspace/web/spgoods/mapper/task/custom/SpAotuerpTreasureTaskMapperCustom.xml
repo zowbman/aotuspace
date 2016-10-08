@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spgoods.mapper.task.custom.SpAotuerpTreasureTaskMapperCustom">
+
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spgoods.model.po.task.custom.SpAotuerpTreasureTaskCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_TreasureId" property="spTreasureid"
+			jdbcType="INTEGER" />
+		<!-- <result column="sp_TaskUploadTime" property="spTaskuploadtime" jdbcType="TIMESTAMP" 
+			/> <result column="sp_TaskUnloadTime" property="spTaskunloadtime" jdbcType="TIMESTAMP" 
+			/> -->
+		<result column="sp_AnId" property="spAnid" jdbcType="INTEGER" />
+		<result column="sp_TaskAging" property="spTaskaging" jdbcType="INTEGER" />
+		<result column="sp_StatusId" property="spStatusid" jdbcType="INTEGER" />
+		<result column="sp_TaskRemark" property="spTaskremark"
+			jdbcType="VARCHAR" />
+		<result column="sp_TaskModeId" property="spTaskmodeid"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 关联查询resultMap -->
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.task.custom.SpAotuerpTreasureTaskCustom"
+		id="spAotuerpTreasureTaskResultMap" extends="BaseResultMap">
+		<!-- 任务状态 -->
+		<association property="spAotuerpTreasureTaskStatus"
+			javaType="com.aotuspace.web.spgoods.model.po.task.SpAotuerpTreasureTaskStatus"
+			select="com.aotuspace.web.spgoods.mapper.task.SpAotuerpTreasureTaskStatusMapper.selectByPrimaryKey"
+			column="sp_StatusId">
+		</association>
+		
+		<!-- 任务模式 -->
+		<association property="spAotuerpTreasureTaskMode"
+			javaType="com.aotuspace.web.spgoods.model.po.task.SpAotuerpTreasureTaskMode"
+			select="com.aotuspace.web.spgoods.mapper.task.SpAotuerpTreasureTaskModeMapper.selectByPrimaryKey"
+			column="sp_TaskModeId">
+		</association>
+
+		<!-- 宝贝信息 -->
+		<association property="spAotuerpTreasureInfoCustom"
+			javaType="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureInfoCustom"
+			select="com.aotuspace.web.spgoods.mapper.treasure.custom.SpAotuerpTreasureInfoMapperCustom.findTreasureInfoById"
+			column="sp_TreasureId">
+		</association>
+		<!-- 代言主播用户信息 -->
+		<association property="spAnchorBinfoCustom"
+			javaType="com.aotuspace.web.spuser.model.po.user.custom.SpAnchorBinfoCustom"
+			select="com.aotuspace.web.spuser.mapper.user.custom.SpAnchorBinfoMapperCustom.findSpAnchorBySpId" column="sp_AnId"></association>
+	</resultMap>
+
+
+	<!-- 根据任务状态进行查询商品 -->
+	<select id="findSpAotuerpTreasureTaskBySpStatusId" resultMap="spAotuerpTreasureTaskResultMap"
+		parameterType="java.lang.Integer">
+		SELECT * FROM sp_aotuerp_treasure_task spatt
+		<where>
+			<if test="value!=null">
+				AND spatt.sp_StatusId=#{value}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据任务状态以及任务商品id -->
+	<select id="findSpAotuerpTreasureTaskBySpIdAndSpStatusId"
+		parameterType="com.aotuspace.web.spgoods.model.vo.task.SpAotuerpTreasureTaskQueryVo"
+		resultMap="spAotuerpTreasureTaskResultMap">
+		SELECT * FROM sp_aotuerp_treasure_task spatt
+		<where>
+			<if test="spTreaTaskC.spId!=null">
+				AND spatt.sp_id=#{spTreaTaskC.spId}
+			</if>
+			<if test="spTreaTaskC.spStatusid!=null">
+				AND spatt.sp_StatusId=#{spTreaTaskC.spStatusid}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据任务状态以及代言人id -->
+	<select id="findSpAotuerpTreasureTaskByAnIdAndSpStatusId"
+		parameterType="com.aotuspace.web.spgoods.model.vo.task.SpAotuerpTreasureTaskQueryVo"
+		resultMap="spAotuerpTreasureTaskResultMap">
+		SELECT * FROM sp_aotuerp_treasure_task spatt
+		<where>
+			<if test="spTreaTaskC.spId!=null">
+				AND spatt.sp_id=#{spTreaTaskC.spId}
+			</if>
+			<if test="spTreaTaskC.spAnid!=null">
+				AND spatt.sp_AnId=#{spTreaTaskC.spAnid}
+			</if>
+			<if test="spTreaTaskC.spStatusid!=null">
+				AND spatt.sp_StatusId=#{spTreaTaskC.spStatusid}
+			</if>
+		</where>
+	</select>
+
+	<!-- 商品sku信息(json)resultMap -->
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.task.custom.SpAotuerpTreasureTaskCustom"
+		id="spAotuerpTreasureTaskSkuJsonResultMap">
+		<collection property="spAotuerpTreasureProductSkuCustoms"
+			ofType="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureProductSkuCustom"
+			select="com.aotuspace.web.spgoods.mapper.treasure.custom.SpAotuerpTreasureProductSkuMapperCustom.findTreasureProductSkuByTreasureId"
+			column="sp_TreasureId">
+		</collection>
+	</resultMap>
+	
+	<select id="findSpAotuerpTreasureTaskSkuJsonByAnIdAndSpStatusId"
+		parameterType="com.aotuspace.web.spgoods.model.vo.task.SpAotuerpTreasureTaskQueryVo"
+		resultMap="spAotuerpTreasureTaskSkuJsonResultMap">
+		SELECT * FROM sp_aotuerp_treasure_task spatt
+		<where>
+			<if test="spTreaTaskC.spId!=null">
+				AND spatt.sp_id=#{spTreaTaskC.spId}
+			</if>
+			<if test="spTreaTaskC.spAnid!=null">
+				AND spatt.sp_AnId=#{spTreaTaskC.spAnid}
+			</if>
+			<if test="spTreaTaskC.spStatusid!=null">
+				AND spatt.sp_StatusId=#{spTreaTaskC.spStatusid}
+			</if>
+		</where>
+	</select>
+
+</mapper>

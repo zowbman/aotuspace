@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.user.custom.SpAnchorBinfoMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpAnchorBinfoCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+		<result column="sp_Resume" property="spResume" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 主播基本基本信息resuoltMap -->
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpAnchorBinfoCustom"
+		id="spAnchorBinfoResultMap" extends="BaseResultMap">
+		<association property="spUsersBinfoCustom"
+			javaType="com.aotuspace.web.spuser.model.po.user.custom.SpUsersBinfoCustom"
+			select="com.aotuspace.web.spuser.mapper.user.custom.SpUsersBinfoMapperCustom.findSpUserBaseInfoByAotuId"
+			column="sp_AtuId">
+		</association>
+	</resultMap>
+
+	<select id="findSpAnchorBySpId" resultMap="spAnchorBinfoResultMap"
+		parameterType="java.lang.Integer">
+		SELECT * FROM sp_anchor_binfo sab
+		<where>
+			<if test="value!=null">
+				AND sab.sp_id=#{value}
+			</if>
+		</where>
+	</select>
+</mapper>

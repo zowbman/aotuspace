@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.SpProductPropertyNameMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_ParentPValue" property="spParentpvalue" jdbcType="INTEGER" />
+    <result column="sp_PropertyName" property="spPropertyname" jdbcType="VARCHAR" />
+    <result column="sp_Alias" property="spAlias" jdbcType="VARCHAR" />
+    <result column="sp_CategoryId" property="spCategoryid" jdbcType="INTEGER" />
+    <result column="sp_IsColorPro" property="spIscolorpro" jdbcType="INTEGER" />
+    <result column="sp_IsEnumPro" property="spIsenumpro" jdbcType="INTEGER" />
+    <result column="sp_IsImportPro" property="spIsimportpro" jdbcType="INTEGER" />
+    <result column="sp_IsKeyPro" property="spIskeypro" jdbcType="INTEGER" />
+    <result column="sp_IsSearchPro" property="spIssearchpro" jdbcType="INTEGER" />
+    <result column="sp_IsRequirePro" property="spIsrequirepro" jdbcType="INTEGER" />
+    <result column="sp_IsMultiselectPro" property="spIsmultiselectpro" jdbcType="INTEGER" />
+    <result column="sp_IsSalePro" property="spIssalepro" jdbcType="INTEGER" />
+    <result column="sp_Sort" property="spSort" jdbcType="INTEGER" />
+    <result column="sp_ParentId" property="spParentid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_ParentPValue, sp_PropertyName, sp_Alias, sp_CategoryId, sp_IsColorPro, 
+    sp_IsEnumPro, sp_IsImportPro, sp_IsKeyPro, sp_IsSearchPro, sp_IsRequirePro, sp_IsMultiselectPro, 
+    sp_IsSalePro, sp_Sort, sp_ParentId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyNameExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_product_property_name
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_product_property_name
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_product_property_name
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyNameExample" >
+    delete from sp_product_property_name
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    insert into sp_product_property_name (sp_id, sp_ParentPValue, sp_PropertyName, 
+      sp_Alias, sp_CategoryId, sp_IsColorPro, 
+      sp_IsEnumPro, sp_IsImportPro, sp_IsKeyPro, 
+      sp_IsSearchPro, sp_IsRequirePro, sp_IsMultiselectPro, 
+      sp_IsSalePro, sp_Sort, sp_ParentId
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spParentpvalue,jdbcType=INTEGER}, #{spPropertyname,jdbcType=VARCHAR}, 
+      #{spAlias,jdbcType=VARCHAR}, #{spCategoryid,jdbcType=INTEGER}, #{spIscolorpro,jdbcType=INTEGER}, 
+      #{spIsenumpro,jdbcType=INTEGER}, #{spIsimportpro,jdbcType=INTEGER}, #{spIskeypro,jdbcType=INTEGER}, 
+      #{spIssearchpro,jdbcType=INTEGER}, #{spIsrequirepro,jdbcType=INTEGER}, #{spIsmultiselectpro,jdbcType=INTEGER}, 
+      #{spIssalepro,jdbcType=INTEGER}, #{spSort,jdbcType=INTEGER}, #{spParentid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    insert into sp_product_property_name
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spParentpvalue != null" >
+        sp_ParentPValue,
+      </if>
+      <if test="spPropertyname != null" >
+        sp_PropertyName,
+      </if>
+      <if test="spAlias != null" >
+        sp_Alias,
+      </if>
+      <if test="spCategoryid != null" >
+        sp_CategoryId,
+      </if>
+      <if test="spIscolorpro != null" >
+        sp_IsColorPro,
+      </if>
+      <if test="spIsenumpro != null" >
+        sp_IsEnumPro,
+      </if>
+      <if test="spIsimportpro != null" >
+        sp_IsImportPro,
+      </if>
+      <if test="spIskeypro != null" >
+        sp_IsKeyPro,
+      </if>
+      <if test="spIssearchpro != null" >
+        sp_IsSearchPro,
+      </if>
+      <if test="spIsrequirepro != null" >
+        sp_IsRequirePro,
+      </if>
+      <if test="spIsmultiselectpro != null" >
+        sp_IsMultiselectPro,
+      </if>
+      <if test="spIssalepro != null" >
+        sp_IsSalePro,
+      </if>
+      <if test="spSort != null" >
+        sp_Sort,
+      </if>
+      <if test="spParentid != null" >
+        sp_ParentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spParentpvalue != null" >
+        #{spParentpvalue,jdbcType=INTEGER},
+      </if>
+      <if test="spPropertyname != null" >
+        #{spPropertyname,jdbcType=VARCHAR},
+      </if>
+      <if test="spAlias != null" >
+        #{spAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="spCategoryid != null" >
+        #{spCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="spIscolorpro != null" >
+        #{spIscolorpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsenumpro != null" >
+        #{spIsenumpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsimportpro != null" >
+        #{spIsimportpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIskeypro != null" >
+        #{spIskeypro,jdbcType=INTEGER},
+      </if>
+      <if test="spIssearchpro != null" >
+        #{spIssearchpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsrequirepro != null" >
+        #{spIsrequirepro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsmultiselectpro != null" >
+        #{spIsmultiselectpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIssalepro != null" >
+        #{spIssalepro,jdbcType=INTEGER},
+      </if>
+      <if test="spSort != null" >
+        #{spSort,jdbcType=INTEGER},
+      </if>
+      <if test="spParentid != null" >
+        #{spParentid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyNameExample" resultType="java.lang.Integer" >
+    select count(*) from sp_product_property_name
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_product_property_name
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spParentpvalue != null" >
+        sp_ParentPValue = #{record.spParentpvalue,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPropertyname != null" >
+        sp_PropertyName = #{record.spPropertyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spAlias != null" >
+        sp_Alias = #{record.spAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spCategoryid != null" >
+        sp_CategoryId = #{record.spCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIscolorpro != null" >
+        sp_IsColorPro = #{record.spIscolorpro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIsenumpro != null" >
+        sp_IsEnumPro = #{record.spIsenumpro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIsimportpro != null" >
+        sp_IsImportPro = #{record.spIsimportpro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIskeypro != null" >
+        sp_IsKeyPro = #{record.spIskeypro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIssearchpro != null" >
+        sp_IsSearchPro = #{record.spIssearchpro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIsrequirepro != null" >
+        sp_IsRequirePro = #{record.spIsrequirepro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIsmultiselectpro != null" >
+        sp_IsMultiselectPro = #{record.spIsmultiselectpro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spIssalepro != null" >
+        sp_IsSalePro = #{record.spIssalepro,jdbcType=INTEGER},
+      </if>
+      <if test="record.spSort != null" >
+        sp_Sort = #{record.spSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.spParentid != null" >
+        sp_ParentId = #{record.spParentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_product_property_name
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_ParentPValue = #{record.spParentpvalue,jdbcType=INTEGER},
+      sp_PropertyName = #{record.spPropertyname,jdbcType=VARCHAR},
+      sp_Alias = #{record.spAlias,jdbcType=VARCHAR},
+      sp_CategoryId = #{record.spCategoryid,jdbcType=INTEGER},
+      sp_IsColorPro = #{record.spIscolorpro,jdbcType=INTEGER},
+      sp_IsEnumPro = #{record.spIsenumpro,jdbcType=INTEGER},
+      sp_IsImportPro = #{record.spIsimportpro,jdbcType=INTEGER},
+      sp_IsKeyPro = #{record.spIskeypro,jdbcType=INTEGER},
+      sp_IsSearchPro = #{record.spIssearchpro,jdbcType=INTEGER},
+      sp_IsRequirePro = #{record.spIsrequirepro,jdbcType=INTEGER},
+      sp_IsMultiselectPro = #{record.spIsmultiselectpro,jdbcType=INTEGER},
+      sp_IsSalePro = #{record.spIssalepro,jdbcType=INTEGER},
+      sp_Sort = #{record.spSort,jdbcType=INTEGER},
+      sp_ParentId = #{record.spParentid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    update sp_product_property_name
+    <set >
+      <if test="spParentpvalue != null" >
+        sp_ParentPValue = #{spParentpvalue,jdbcType=INTEGER},
+      </if>
+      <if test="spPropertyname != null" >
+        sp_PropertyName = #{spPropertyname,jdbcType=VARCHAR},
+      </if>
+      <if test="spAlias != null" >
+        sp_Alias = #{spAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="spCategoryid != null" >
+        sp_CategoryId = #{spCategoryid,jdbcType=INTEGER},
+      </if>
+      <if test="spIscolorpro != null" >
+        sp_IsColorPro = #{spIscolorpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsenumpro != null" >
+        sp_IsEnumPro = #{spIsenumpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsimportpro != null" >
+        sp_IsImportPro = #{spIsimportpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIskeypro != null" >
+        sp_IsKeyPro = #{spIskeypro,jdbcType=INTEGER},
+      </if>
+      <if test="spIssearchpro != null" >
+        sp_IsSearchPro = #{spIssearchpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsrequirepro != null" >
+        sp_IsRequirePro = #{spIsrequirepro,jdbcType=INTEGER},
+      </if>
+      <if test="spIsmultiselectpro != null" >
+        sp_IsMultiselectPro = #{spIsmultiselectpro,jdbcType=INTEGER},
+      </if>
+      <if test="spIssalepro != null" >
+        sp_IsSalePro = #{spIssalepro,jdbcType=INTEGER},
+      </if>
+      <if test="spSort != null" >
+        sp_Sort = #{spSort,jdbcType=INTEGER},
+      </if>
+      <if test="spParentid != null" >
+        sp_ParentId = #{spParentid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    update sp_product_property_name
+    set sp_ParentPValue = #{spParentpvalue,jdbcType=INTEGER},
+      sp_PropertyName = #{spPropertyname,jdbcType=VARCHAR},
+      sp_Alias = #{spAlias,jdbcType=VARCHAR},
+      sp_CategoryId = #{spCategoryid,jdbcType=INTEGER},
+      sp_IsColorPro = #{spIscolorpro,jdbcType=INTEGER},
+      sp_IsEnumPro = #{spIsenumpro,jdbcType=INTEGER},
+      sp_IsImportPro = #{spIsimportpro,jdbcType=INTEGER},
+      sp_IsKeyPro = #{spIskeypro,jdbcType=INTEGER},
+      sp_IsSearchPro = #{spIssearchpro,jdbcType=INTEGER},
+      sp_IsRequirePro = #{spIsrequirepro,jdbcType=INTEGER},
+      sp_IsMultiselectPro = #{spIsmultiselectpro,jdbcType=INTEGER},
+      sp_IsSalePro = #{spIssalepro,jdbcType=INTEGER},
+      sp_Sort = #{spSort,jdbcType=INTEGER},
+      sp_ParentId = #{spParentid,jdbcType=INTEGER}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

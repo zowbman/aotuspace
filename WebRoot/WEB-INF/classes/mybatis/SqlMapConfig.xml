@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 加载属性文件 
+	与spring整合数据源交给spring管理，所以这里不用加载jdbc.properties
+	-->
+	<!-- <properties resource="jdbc/jdbc.properties" >类路径的引用
+	</properties> -->
+
+	<!-- 全局的配置参数，需要再配 -->
+	<settings>
+		<!-- 开启懒加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 关闭积极加载 -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 开启二级缓存总开关 -->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+	
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!-- 单个别名 -->
+		<!-- <typeAlias type="com.aotuspace.web.test.po.Test" alias="test"/> -->
+		<!-- 批量别名定义 -->
+		<!-- 测试 -->
+		<package name="com.aotuspace.web.test.po"/>
+	</typeAliases>
+	
+	<!-- 配置mapper，由于使用spring和mybatis的整合包，进行mapper扫描，这里不需要配置
+		并且是mybatismapper代理方法
+		必须遵循：mapper.xml和mapper.java文件同名且在一个目录下
+	 -->
+	 
+	 <!-- 和spring整合后environment配置将废除 -->
+	<!-- <environments default="development">
+		<environment id="development">
+			使用jdbc事务管理，事务控制由mybatis
+			坑爹地方
+			<transactionManager type="JDBC" />
+			数据库连接池 ,mybatis管理
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClass}" />
+				<property name="url" value="${jdbc.jdbcUrl}" />
+				<property name="username" value="${jdbc.user}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	
+	<!-- 使用mybatis与spring扫描包这里就不用配置 
+		遵循mapper.java和mapper.xml同名同目录
+	-->
+	<!-- <mappers>
+		批量加载mapper 
+		<package name="com.aotuspace.web.test.mapper"/>
+	</mappers> -->
+	
+</configuration>

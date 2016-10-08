@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.treasure.SpAotuerpTreasureStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatus" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_TreasureStatus" property="spTreasurestatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_TreasureStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatusExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_aotuerp_treasure_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_aotuerp_treasure_status
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_aotuerp_treasure_status
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatusExample" >
+    delete from sp_aotuerp_treasure_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatus" >
+    insert into sp_aotuerp_treasure_status (sp_id, sp_TreasureStatus)
+    values (#{spId,jdbcType=INTEGER}, #{spTreasurestatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatus" >
+    insert into sp_aotuerp_treasure_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spTreasurestatus != null" >
+        sp_TreasureStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasurestatus != null" >
+        #{spTreasurestatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatusExample" resultType="java.lang.Integer" >
+    select count(*) from sp_aotuerp_treasure_status
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_aotuerp_treasure_status
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTreasurestatus != null" >
+        sp_TreasureStatus = #{record.spTreasurestatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_aotuerp_treasure_status
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_TreasureStatus = #{record.spTreasurestatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatus" >
+    update sp_aotuerp_treasure_status
+    <set >
+      <if test="spTreasurestatus != null" >
+        sp_TreasureStatus = #{spTreasurestatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureStatus" >
+    update sp_aotuerp_treasure_status
+    set sp_TreasureStatus = #{spTreasurestatus,jdbcType=VARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

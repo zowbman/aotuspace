@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspacePrivMapperCustom">
+
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspacePrivCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_Name" property="spName" jdbcType="VARCHAR" />
+		<result column="sp_Url" property="spUrl" jdbcType="VARCHAR" />
+		<result column="sp_Pid" property="spPid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 查询权限url地址集合 （url非空（非顶级）） -->
+	<select id="findAllSpAotuspacePrivUrls" resultType="String">
+		SELECT sp_Url
+		FROM sp_aotuspace_priv WHERE sp_Url IS NOT NULL
+	</select>
+
+	<!-- 根据用户权限查询 -->
+	<select id="findPrivsByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+		SELECT * FROM sp_aotuspace_priv sap
+		<where>
+			<if test="value!=null">
+				AND sap.sp_id =#{value}
+			</if>
+		</where>
+	</select>
+</mapper>

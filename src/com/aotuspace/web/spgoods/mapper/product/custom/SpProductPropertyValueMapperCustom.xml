@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.custom.SpProductPropertyValueMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_PropertyValue" property="spPropertyvalue" jdbcType="VARCHAR" />
+    <result column="sp_PropertyNameId" property="spPropertynameid" jdbcType="INTEGER" />
+    <result column="sp_CategoryId" property="spCategoryid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="findSpProductPvalue" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	  	SELECT * FROM sp_product_property_value sppv
+  		<where>
+  			<if test="value!=null">
+  				AND sppv.sp_id=#{value}
+  			</if>
+  		</where>
+  </select>
+  
+</mapper>

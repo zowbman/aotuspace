@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.aotuspace.web.spgoods.mapper.treasure.custom.SpAotuerpTreasureImgMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureImg">
+		<id column="sp_id" jdbcType="INTEGER" property="spId" />
+		<result column="sp_Img" jdbcType="VARCHAR" property="spImg" />
+		<result column="sp_IsPrimary" jdbcType="INTEGER" property="spIsprimary" />
+		<result column="sp_ImgOrder" jdbcType="INTEGER" property="spImgorder" />
+		<result column="sp_ImgSize" jdbcType="INTEGER" property="spImgsize" />
+		<result column="sp_ImgWidth" jdbcType="INTEGER" property="spImgwidth" />
+		<result column="sp_ImgHeight" jdbcType="INTEGER" property="spImgheight" />
+		<result column="sp_OrginalImgId" jdbcType="INTEGER" property="spOrginalimgid" />
+	</resultMap>
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureImg"
+		id="spTreasureInfoImgResultMap" extends="BaseResultMap">
+	</resultMap>
+	
+	<select id="findTreasureImgByTreasureId" resultMap="spTreasureInfoImgResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM sp_aotuerp_treasure_img
+		<where>
+			AND sp_id IN (
+					SELECT sp_TreasureImgId FROM sp_aotuerp_treasure_img_relation spatir INNER JOIN sp_aotuerp_treasure_info spati 
+					ON spatir.sp_TreasureId = spati.sp_id
+					<where>
+						<if test="value!=null">
+							AND spati.sp_id=#{value}
+						</if>
+					</where>
+				)
+		</where>
+	</select>
+</mapper>

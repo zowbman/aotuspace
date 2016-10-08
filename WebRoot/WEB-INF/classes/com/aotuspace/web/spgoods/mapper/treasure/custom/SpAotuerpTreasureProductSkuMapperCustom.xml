@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spgoods.mapper.treasure.custom.SpAotuerpTreasureProductSkuMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureProductSkuCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_TreasureId" property="spTreasureid"
+			jdbcType="INTEGER" />
+		<result column="sp_SkuId" property="spSkuid" jdbcType="INTEGER" />
+		<result column="sp_SalesPrice" property="spSalesprice"
+			jdbcType="DECIMAL" />
+		<result column="sp_SalesQuantity" property="spSalesquantity"
+			jdbcType="INTEGER" />
+		<result column="sp_SalesOrderQuantity" property="spSalesorderquantity"
+			jdbcType="INTEGER" />
+		<result column="sp_TotalPrice" property="spTotalprice"
+			jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureProductSkuCustom"
+		id="spTreasureProductSkuResultMap" extends="BaseResultMap">
+		<collection property="spProductBproCSkus"
+			ofType="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBpropertiesCustom"
+			select="com.aotuspace.web.spgoods.mapper.product.custom.SpProductBpropertiesMapperCustom.findSpProductBproCBySpSkuId"
+			column="sp_SkuId" fetchType="eager">
+		</collection>
+	</resultMap>
+
+	<!-- 根据宝贝id查询宝贝信息 -->
+	<select id="findTreasureProductSkuByTreasureId" parameterType="java.lang.Integer"
+		resultMap="spTreasureProductSkuResultMap">
+		SELECT * FROM sp_aotuerp_treasure_product_sku spatps
+		<where>
+			<if test="value!=null">
+				AND spatps.sp_TreasureId=#{value}
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

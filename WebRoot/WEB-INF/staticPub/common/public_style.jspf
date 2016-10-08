@@ -1,0 +1,17 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/index_825aotu.css">
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/share_825aotu.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/myfocus-1.1.0.min.js" charset="utf-8"></script><!--引入myFocus库-->
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/mF_fscreen_tb.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/extend/formjson.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/json2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/angular.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/angular-sku.min.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath }/js/angular-sku.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/js.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/addbuy_aotu1217.js"></script>
+

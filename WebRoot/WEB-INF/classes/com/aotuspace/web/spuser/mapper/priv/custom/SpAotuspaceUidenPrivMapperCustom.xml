@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspaceUidenPrivMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceUidenPrivCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_IdentId" property="spIdentid" jdbcType="TINYINT" />
+		<result column="sp_PrivId" property="spPrivid" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceUidenPrivCustom"
+		id="spUidenPrivsResultMap" extends="BaseResultMap">
+		<collection property="spAotuspacePrivCustoms"
+			ofType="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspacePrivCustom"
+			select="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspacePrivMapperCustom.findPrivsByUserId"
+			fetchType="eager" column="sp_PrivId"></collection>
+	</resultMap>
+
+
+	<select id="findPrivsByUidenId" parameterType="java.lang.Integer"
+		resultMap="spUidenPrivsResultMap">
+		SELECT * FROM sp_aotuspace_uiden_priv spaup
+		<where>
+			<if test="value!=null">
+				AND spaup.sp_IdentId=#{value}
+			</if>
+		</where>
+	</select>
+
+</mapper>

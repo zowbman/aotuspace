@@ -1,0 +1,152 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    
+    
+    <!-- 配置Handler处理器加载到容器当中 
+    	这里使用组件扫描的方式获取Handler处理器
+    -->
+    <context:component-scan base-package="com.aotuspace.web.controller"></context:component-scan>
+    <context:component-scan base-package="com.aotuspace.web.spuser.controller"></context:component-scan>
+    <context:component-scan base-package="com.aotuspace.web.spdictionary.controller"></context:component-scan>
+    <context:component-scan base-package="com.aotuspace.web.spgoods.controller"></context:component-scan>
+
+
+    <!-- 静态资源解析 -->
+    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+    <mvc:resources location="/fonts/" mapping="/fonts/**"></mvc:resources>
+    <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+    <mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
+    <mvc:resources location="/swf/" mapping="/swf/**"></mvc:resources>
+    
+    <!-- 使用<mvc-annotation-driven>驱动加载处理器适配器和映射器 -->
+    <!-- 配置处理器映射器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean> -->
+    
+    <!-- 配置处理器适配器 -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    	配置一个webBindingInitializer进行注册（转换器、校验器）
+    	<property name="webBindingInitializer" ref="webBindingInitializer"></property>
+    	<property name="messageConverters" ref="messageConverters"></property>
+    </bean> -->
+    
+    <!-- 注释掉配置注解的处理器映射器和注解的处理器适配器，可以使用下方进行mvc:annotation-driven
+    	比如json转换解析器就默认加载，实际开发时使用mvc:annotation-driven
+    	实际开发
+     -->
+    <!-- 使用hibernate校验框架，如果使用注解驱动那么配置validator设置为校验bean的id即可 -->
+    <mvc:annotation-driven conversion-service="conversionService" validator="validation"></mvc:annotation-driven>
+    
+    
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<!-- 配置前缀以及后缀 -->
+    	<!-- <property name="prefix" value="/WEB-INF/jsp/"></property> -->
+    	<property name="prefix" value="/WEB-INF/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+
+	<!-- 自定义参数绑定 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- 转换器 -->
+		<property name="converters">
+			<list>
+				<!-- 日期类型转换器 -->
+				<bean class="com.aotuspace.web.converter.CustomDateConverter"></bean>
+				<!-- 字符串去前后空格 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置校验器 -->
+	<bean id="validation"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- hibernate校验 -->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+		<!-- 指定资源文件位置，在文件配置中配置错误信息，如果不指定则默认使用classpath下的ValidationMessage.properties -->
+		<property name="validationMessageSource" ref="messageSource"></property>
+	</bean>
+	
+	<!-- 配置错误信息配置文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!-- 资源名称 因为这里是配置basenames所以不用配properties -->
+		<property name="basenames">
+			<list>
+				<value>classpath:validation/CustomValidationMessages</value>
+			</list>
+		</property>
+		<!-- 资源文件编码 -->
+		<property name="fileEncodings" value="gb2312"></property>
+		<!-- 资源文件缓存刷新，单位为秒 这里为2分钟 -->
+		<property name="cacheSeconds" value="120"></property>
+	</bean>
+
+	<!-- 如果没有使用<mvc:annotation-driven> 需要注册自定义的类型转换器 -->
+	<!-- <bean id="webBindingInitializer"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
+		<!-- 转换器 -->
+		<!-- <property name="conversionService" ref="conversionService"></property> -->
+		<!-- 校验器 -->
+		<!-- <property name="validator" ref="validation"></property>
+	</bean> -->
+	
+	<!-- 全局异常处理器
+	只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
+	<!-- <bean class="com.aotuspace.web.test.controller.exception.CustomerExceptionResolver"></bean> -->
+	
+	<!-- 文件上传 -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		设置上传文件的最大尺寸为5MB
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean> -->
+	<!-- 解决控件上传图片重新封装request的问题 -->
+	<bean id="multipartResolver" class="com.aotuspace.web.resolver.CommonsMultipartResolver">
+		<!-- 设置上传文件的最大尺寸为5MB -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+	
+	<!-- 配置json解析器 -->
+	<bean id="messageConverters" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	</bean>
+	
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<!-- 配置多个拦截器，顺序执行 -->
+		<!-- 用户请求，检查权限拦截器 -->
+		<mvc:interceptor>
+			<!-- 所有请求拦截 -->
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/fonts/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/images/**"/>
+			<mvc:exclude-mapping path="/swf/**"/>
+			<bean class="com.aotuspace.web.interceptor.SpCheckPrivilegeInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+</beans>
+

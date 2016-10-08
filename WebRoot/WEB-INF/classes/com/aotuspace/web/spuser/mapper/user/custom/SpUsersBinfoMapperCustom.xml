@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.user.custom.SpUsersBinfoMapperCustom">
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpUsersBinfoCustom"
+		id="baseResultMap">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+		<result column="sp_Account" property="spAccount" jdbcType="VARCHAR" />
+		<result column="sp_Password" property="spPassword" jdbcType="VARCHAR" />
+		<result column="sp_Identity" property="spIdentity" jdbcType="TINYINT" />
+		<result column="sp_ReDate" property="spRedate" jdbcType="TIMESTAMP" />
+		<result column="sp_RePlace" property="spReplace" jdbcType="VARCHAR" />
+		<result column="sp_ReIp" property="spReip" jdbcType="VARCHAR" />
+		<result column="sp_Status" property="spStatus" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 用户基本信息resuoltMap -->
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpUsersBinfoCustom"
+		id="spUserBaseInfoResultMap">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+		<association property="spUsersDinfoCustom"
+			javaType="com.aotuspace.web.spuser.model.po.user.custom.SpUsersDinfoCustom"
+			select="com.aotuspace.web.spuser.mapper.user.custom.SpUsersDinfoMapperCustom.findSpUsersDInfoByAotuId"
+			column="sp_AtuId"></association>
+	</resultMap>
+
+
+
+	<!-- 用户权限resultMap -->
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpUsersBinfoCustom"
+		id="spUserPrivResultMap" extends="baseResultMap">
+		<!-- 查询用户本身的权限 -->
+		<collection property="spAotuspaceUserPrivCustoms"
+			ofType="com.aotuspace.web.spuser.model.po.priv.SpAotuspaceUserPriv"
+			select="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspaceUserPrivMapperCustom.findPrivsByUserId"
+			column="sp_id" fetchType="eager"></collection>
+		<!-- 查询用户角色的权限 -->
+		<collection property="spAotuspaceUserRoleCustoms"
+			ofType="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceUserRoleCustom"
+			select="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspaceUserRoleMapperCustom.findRolesByUserId"
+			column="sp_id" fetchType="eager"></collection>
+		<!-- 查询用户组（身份）的权限 -->
+		<collection property="spAotuspaceUidenPrivCustoms"
+			ofType="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceUidenPrivCustom"
+			select="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspaceUidenPrivMapperCustom.findPrivsByUidenId"
+			column="sp_Identity" fetchType="eager"></collection>
+	</resultMap>
+
+
+
+	<sql id="query_u_login_where">
+		<if test="spUserC.spAccount!=null and spUserC.spAccount!=''">
+			And spub.sp_Account = #{spUserC.spAccount}
+		</if>
+		<if test="spUserC.spPassword!=null and spUserC.spPassword!=''">
+			AND spub.sp_Password = #{spUserC.spPassword}
+		</if>
+	</sql>
+
+	<!-- 查询最大的凹凸Id -->
+	<select id="findSpUserMaxAotuId" resultType="java.lang.Integer">
+		SELECT
+		MAX(spub.sp_AtuId) FROM sp_users_binfo spub
+	</select>
+
+	<select id="findSpUserByAccount" parameterType="String"
+		resultType="java.lang.Integer">
+		SELECT count(sp_id) FROM sp_users_binfo spub
+		<where>
+			<if test="value!=null and value!=''">
+				AND spub.sp_Account=#{value}
+			</if>
+		</where>
+	</select>
+
+	<!-- 登录 -->
+	<select id="findSpUserBySpAccountAndSpPassword"
+		parameterType="com.aotuspace.web.spuser.model.vo.user.SpUsersBinfoQueryVo"
+		resultMap="spUserPrivResultMap">
+		SELECT * FROM sp_users_binfo spub
+		<where>
+			<include refid="query_u_login_where"></include>
+		</where>
+	</select>
+	<!-- 注册 -->
+
+	<!-- 根据aotuid查询用户信息 -->
+	<select id="findSpUserBaseInfoByAotuId" parameterType="java.lang.Integer"
+		resultMap="spUserBaseInfoResultMap">
+		SELECT * FROM sp_users_binfo spub
+		<where>
+			<if test="value!=null and value!=''">
+				AND spub.sp_AtuId=#{value}
+			</if>
+		</where>
+	</select>
+
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.SpProductBinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductBinfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_PdSpu" property="spPdspu" jdbcType="VARCHAR" />
+    <result column="sp_BrandId" property="spBrandid" jdbcType="INTEGER" />
+    <result column="sp_PdTitle" property="spPdtitle" jdbcType="VARCHAR" />
+    <result column="sp_PdFeature" property="spPdfeature" jdbcType="VARCHAR" />
+    <result column="sp_PdImage" property="spPdimage" jdbcType="VARCHAR" />
+    <result column="sp_PdCreDate" property="spPdcredate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_PdSpu, sp_BrandId, sp_PdTitle, sp_PdFeature, sp_PdImage, sp_PdCreDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_product_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_product_binfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_product_binfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfoExample" >
+    delete from sp_product_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfo" >
+    insert into sp_product_binfo (sp_id, sp_PdSpu, sp_BrandId, 
+      sp_PdTitle, sp_PdFeature, sp_PdImage, 
+      sp_PdCreDate)
+    values (#{spId,jdbcType=INTEGER}, #{spPdspu,jdbcType=VARCHAR}, #{spBrandid,jdbcType=INTEGER}, 
+      #{spPdtitle,jdbcType=VARCHAR}, #{spPdfeature,jdbcType=VARCHAR}, #{spPdimage,jdbcType=VARCHAR}, 
+      #{spPdcredate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfo" >
+    insert into sp_product_binfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spPdspu != null" >
+        sp_PdSpu,
+      </if>
+      <if test="spBrandid != null" >
+        sp_BrandId,
+      </if>
+      <if test="spPdtitle != null" >
+        sp_PdTitle,
+      </if>
+      <if test="spPdfeature != null" >
+        sp_PdFeature,
+      </if>
+      <if test="spPdimage != null" >
+        sp_PdImage,
+      </if>
+      <if test="spPdcredate != null" >
+        sp_PdCreDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spPdspu != null" >
+        #{spPdspu,jdbcType=VARCHAR},
+      </if>
+      <if test="spBrandid != null" >
+        #{spBrandid,jdbcType=INTEGER},
+      </if>
+      <if test="spPdtitle != null" >
+        #{spPdtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdfeature != null" >
+        #{spPdfeature,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdimage != null" >
+        #{spPdimage,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdcredate != null" >
+        #{spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_product_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_product_binfo
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPdspu != null" >
+        sp_PdSpu = #{record.spPdspu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spBrandid != null" >
+        sp_BrandId = #{record.spBrandid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPdtitle != null" >
+        sp_PdTitle = #{record.spPdtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPdfeature != null" >
+        sp_PdFeature = #{record.spPdfeature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPdimage != null" >
+        sp_PdImage = #{record.spPdimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPdcredate != null" >
+        sp_PdCreDate = #{record.spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_product_binfo
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_PdSpu = #{record.spPdspu,jdbcType=VARCHAR},
+      sp_BrandId = #{record.spBrandid,jdbcType=INTEGER},
+      sp_PdTitle = #{record.spPdtitle,jdbcType=VARCHAR},
+      sp_PdFeature = #{record.spPdfeature,jdbcType=VARCHAR},
+      sp_PdImage = #{record.spPdimage,jdbcType=VARCHAR},
+      sp_PdCreDate = #{record.spPdcredate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfo" >
+    update sp_product_binfo
+    <set >
+      <if test="spPdspu != null" >
+        sp_PdSpu = #{spPdspu,jdbcType=VARCHAR},
+      </if>
+      <if test="spBrandid != null" >
+        sp_BrandId = #{spBrandid,jdbcType=INTEGER},
+      </if>
+      <if test="spPdtitle != null" >
+        sp_PdTitle = #{spPdtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdfeature != null" >
+        sp_PdFeature = #{spPdfeature,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdimage != null" >
+        sp_PdImage = #{spPdimage,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdcredate != null" >
+        sp_PdCreDate = #{spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductBinfo" >
+    update sp_product_binfo
+    set sp_PdSpu = #{spPdspu,jdbcType=VARCHAR},
+      sp_BrandId = #{spBrandid,jdbcType=INTEGER},
+      sp_PdTitle = #{spPdtitle,jdbcType=VARCHAR},
+      sp_PdFeature = #{spPdfeature,jdbcType=VARCHAR},
+      sp_PdImage = #{spPdimage,jdbcType=VARCHAR},
+      sp_PdCreDate = #{spPdcredate,jdbcType=TIMESTAMP}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

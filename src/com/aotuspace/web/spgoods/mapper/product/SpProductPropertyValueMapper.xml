@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.SpProductPropertyValueMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_PropertyValue" property="spPropertyvalue" jdbcType="VARCHAR" />
+    <result column="sp_PropertyNameId" property="spPropertynameid" jdbcType="INTEGER" />
+    <result column="sp_CategoryId" property="spCategoryid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_PropertyValue, sp_PropertyNameId, sp_CategoryId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_product_property_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_product_property_value
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_product_property_value
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValueExample" >
+    delete from sp_product_property_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    insert into sp_product_property_value (sp_id, sp_PropertyValue, sp_PropertyNameId, 
+      sp_CategoryId)
+    values (#{spId,jdbcType=INTEGER}, #{spPropertyvalue,jdbcType=VARCHAR}, #{spPropertynameid,jdbcType=INTEGER}, 
+      #{spCategoryid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    insert into sp_product_property_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spPropertyvalue != null" >
+        sp_PropertyValue,
+      </if>
+      <if test="spPropertynameid != null" >
+        sp_PropertyNameId,
+      </if>
+      <if test="spCategoryid != null" >
+        sp_CategoryId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spPropertyvalue != null" >
+        #{spPropertyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="spPropertynameid != null" >
+        #{spPropertynameid,jdbcType=INTEGER},
+      </if>
+      <if test="spCategoryid != null" >
+        #{spCategoryid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValueExample" resultType="java.lang.Integer" >
+    select count(*) from sp_product_property_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_product_property_value
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPropertyvalue != null" >
+        sp_PropertyValue = #{record.spPropertyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPropertynameid != null" >
+        sp_PropertyNameId = #{record.spPropertynameid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spCategoryid != null" >
+        sp_CategoryId = #{record.spCategoryid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_product_property_value
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_PropertyValue = #{record.spPropertyvalue,jdbcType=VARCHAR},
+      sp_PropertyNameId = #{record.spPropertynameid,jdbcType=INTEGER},
+      sp_CategoryId = #{record.spCategoryid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    update sp_product_property_value
+    <set >
+      <if test="spPropertyvalue != null" >
+        sp_PropertyValue = #{spPropertyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="spPropertynameid != null" >
+        sp_PropertyNameId = #{spPropertynameid,jdbcType=INTEGER},
+      </if>
+      <if test="spCategoryid != null" >
+        sp_CategoryId = #{spCategoryid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue" >
+    update sp_product_property_value
+    set sp_PropertyValue = #{spPropertyvalue,jdbcType=VARCHAR},
+      sp_PropertyNameId = #{spPropertynameid,jdbcType=INTEGER},
+      sp_CategoryId = #{spCategoryid,jdbcType=INTEGER}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

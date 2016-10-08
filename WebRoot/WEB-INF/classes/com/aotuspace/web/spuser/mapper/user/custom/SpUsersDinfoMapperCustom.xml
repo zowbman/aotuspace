@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.user.custom.SpUsersDinfoMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpUsersDinfoCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+		<result column="sp_NickName" property="spNickname" jdbcType="VARCHAR" />
+		<result column="sp_Icon" property="spIcon" jdbcType="INTEGER" />
+		<result column="sp_RealName" property="spRealname" jdbcType="VARCHAR" />
+		<result column="sp_Sex" property="spSex" jdbcType="CHAR" />
+		<result column="sp_Birth" property="spBirth" jdbcType="TIMESTAMP" />
+		<result column="sp_Animal" property="spAnimal" jdbcType="TINYINT" />
+		<result column="sp_Age" property="spAge" jdbcType="TINYINT" />
+		<result column="sp_Con" property="spCon" jdbcType="TINYINT" />
+		<result column="sp_UserDistrict" property="spUserdistrict"
+			jdbcType="VARCHAR" />
+		<result column="sp_Address" property="spAddress" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.user.custom.SpUsersDinfoCustom"
+		id="spUserDInfoResultMap" extends="BaseResultMap">
+		<association property="spUsersAvatar"
+			javaType="com.aotuspace.web.spuser.model.po.user.SpUsersAvatar"
+			select="com.aotuspace.web.spuser.mapper.user.SpUsersAvatarMapper.selectByPrimaryKey"
+			column="sp_Icon"></association>
+	</resultMap>
+
+	<select id="findSpUsersDInfoByAotuId" resultMap="spUserDInfoResultMap"
+		parameterType="java.lang.Integer">
+		SELECT * FROM sp_users_dinfo sud
+		<where>
+			<if test="value!=null">
+				AND sud.sp_AtuId=#{value}
+			</if>
+		</where>
+	</select>
+
+</mapper>

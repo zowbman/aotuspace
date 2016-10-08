@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.custom.SpProductPropertyNameMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_ParentPValue" property="spParentpvalue" jdbcType="INTEGER" />
+    <result column="sp_PropertyName" property="spPropertyname" jdbcType="VARCHAR" />
+    <result column="sp_Alias" property="spAlias" jdbcType="VARCHAR" />
+    <result column="sp_CategoryId" property="spCategoryid" jdbcType="INTEGER" />
+    <result column="sp_IsColorPro" property="spIscolorpro" jdbcType="INTEGER" />
+    <result column="sp_IsKeyPro" property="spIskeypro" jdbcType="INTEGER" />
+    <result column="sp_IsSalePro" property="spIssalepro" jdbcType="INTEGER" />
+    <result column="sp_Sort" property="spSort" jdbcType="INTEGER" />
+    <result column="sp_ParentId" property="spParentid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="findSpProductPnameById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		SELECT * FROM sp_product_property_name sppn
+  		<where>
+  			<if test="value!=null">
+  				AND sppn.sp_id=#{value}
+  			</if>
+  		</where>
+  </select>
+</mapper>

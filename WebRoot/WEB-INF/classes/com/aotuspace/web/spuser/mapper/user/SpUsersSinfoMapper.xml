@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spuser.mapper.user.SpUsersSinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spuser.model.po.user.SpUsersSinfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+    <result column="sp_BMobie" property="spBmobie" jdbcType="CHAR" />
+    <result column="sp_BEmail" property="spBemail" jdbcType="VARCHAR" />
+    <result column="sp_SeQuestion" property="spSequestion" jdbcType="TINYINT" />
+    <result column="sp_SeAnswer" property="spSeanswer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_AtuId, sp_BMobie, sp_BEmail, sp_SeQuestion, sp_SeAnswer
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_users_sinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_users_sinfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfoKey" >
+    delete from sp_users_sinfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfoExample" >
+    delete from sp_users_sinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfo" >
+    insert into sp_users_sinfo (sp_id, sp_AtuId, sp_BMobie, 
+      sp_BEmail, sp_SeQuestion, sp_SeAnswer
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spAtuid,jdbcType=INTEGER}, #{spBmobie,jdbcType=CHAR}, 
+      #{spBemail,jdbcType=VARCHAR}, #{spSequestion,jdbcType=TINYINT}, #{spSeanswer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfo" >
+    insert into sp_users_sinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spAtuid != null" >
+        sp_AtuId,
+      </if>
+      <if test="spBmobie != null" >
+        sp_BMobie,
+      </if>
+      <if test="spBemail != null" >
+        sp_BEmail,
+      </if>
+      <if test="spSequestion != null" >
+        sp_SeQuestion,
+      </if>
+      <if test="spSeanswer != null" >
+        sp_SeAnswer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spAtuid != null" >
+        #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spBmobie != null" >
+        #{spBmobie,jdbcType=CHAR},
+      </if>
+      <if test="spBemail != null" >
+        #{spBemail,jdbcType=VARCHAR},
+      </if>
+      <if test="spSequestion != null" >
+        #{spSequestion,jdbcType=TINYINT},
+      </if>
+      <if test="spSeanswer != null" >
+        #{spSeanswer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_users_sinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_users_sinfo
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAtuid != null" >
+        sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spBmobie != null" >
+        sp_BMobie = #{record.spBmobie,jdbcType=CHAR},
+      </if>
+      <if test="record.spBemail != null" >
+        sp_BEmail = #{record.spBemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spSequestion != null" >
+        sp_SeQuestion = #{record.spSequestion,jdbcType=TINYINT},
+      </if>
+      <if test="record.spSeanswer != null" >
+        sp_SeAnswer = #{record.spSeanswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_users_sinfo
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      sp_BMobie = #{record.spBmobie,jdbcType=CHAR},
+      sp_BEmail = #{record.spBemail,jdbcType=VARCHAR},
+      sp_SeQuestion = #{record.spSequestion,jdbcType=TINYINT},
+      sp_SeAnswer = #{record.spSeanswer,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfo" >
+    update sp_users_sinfo
+    <set >
+      <if test="spBmobie != null" >
+        sp_BMobie = #{spBmobie,jdbcType=CHAR},
+      </if>
+      <if test="spBemail != null" >
+        sp_BEmail = #{spBemail,jdbcType=VARCHAR},
+      </if>
+      <if test="spSequestion != null" >
+        sp_SeQuestion = #{spSequestion,jdbcType=TINYINT},
+      </if>
+      <if test="spSeanswer != null" >
+        sp_SeAnswer = #{spSeanswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersSinfo" >
+    update sp_users_sinfo
+    set sp_BMobie = #{spBmobie,jdbcType=CHAR},
+      sp_BEmail = #{spBemail,jdbcType=VARCHAR},
+      sp_SeQuestion = #{spSequestion,jdbcType=TINYINT},
+      sp_SeAnswer = #{spSeanswer,jdbcType=VARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+</mapper>

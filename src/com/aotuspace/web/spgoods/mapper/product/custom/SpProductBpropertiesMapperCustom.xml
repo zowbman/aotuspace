@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spgoods.mapper.product.custom.SpProductBpropertiesMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBpropertiesCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_PdId" property="spPdid" jdbcType="INTEGER" />
+		<result column="sp_PropertyNameId" property="spPropertynameid"
+			jdbcType="INTEGER" />
+		<result column="sp_PropertyValueId" property="spPropertyvalueid"
+			jdbcType="INTEGER" />
+		<result column="sp_IsSku" property="spIssku" jdbcType="INTEGER" />
+		<result column="sp_SkuId" property="spSkuid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBpropertiesCustom"
+		id="spProductProResultMap" extends="BaseResultMap">
+		<!-- 属性名关联 -->
+		<association property="spProductPname"
+			javaType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyName"
+			select="com.aotuspace.web.spgoods.mapper.product.custom.SpProductPropertyNameMapperCustom.findSpProductPnameById"
+			column="sp_PropertyNameId"></association>
+
+		<!-- 属性值关联 -->
+		<association property="spProductPvalue"
+			javaType="com.aotuspace.web.spgoods.model.po.product.SpProductPropertyValue"
+			select="com.aotuspace.web.spgoods.mapper.product.custom.SpProductPropertyValueMapperCustom.findSpProductPvalue"
+			column="sp_PropertyValueId"></association>
+	</resultMap>
+
+	<!-- 根据商品id查询商品属性 -->
+	<select id="findSpProductBproCBySpPdId" parameterType="java.lang.Integer"
+		resultMap="spProductProResultMap">
+		SELECT * FROM sp_product_bproperties sppb
+		<where>
+			<if test="value!=null">
+				AND sppb.sp_PdId=#{value}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据商品skuid查询商品属性 -->
+	<select id="findSpProductBproCBySpSkuId" parameterType="java.lang.Integer"
+		resultMap="spProductProResultMap">
+		SELECT * FROM sp_product_bproperties sppb
+		<where>
+			<if test="value!=null">
+				AND sppb.sp_SkuId=#{value} 
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据skuid查询商品属性名 -->
+	<select id="findSpProductBproCNameBySpSkuId" parameterType="Object[]"
+		resultMap="spProductProResultMap">
+		SELECT DISTINCT sppb.sp_PropertyNameId FROM sp_product_bproperties
+		sppb
+		<where>
+			<if test="array!=null">
+				<foreach collection="array" index="index" item="item"
+					open="and sppb.sp_SkuId in(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	<!-- 根据skuid和属性名id查询属性值 -->
+	<select id="findSpProductBproCValueBySpSkuIdAndNameId"
+		parameterType="hashmap" resultMap="spProductProResultMap">
+		SELECT DISTINCT sppb.sp_PropertyValueId FROM sp_product_bproperties
+		sppb
+		<where>
+			<if test="nameId!=null">
+				AND sppb.sp_PropertyNameId=#{nameId}
+			</if>
+
+			<if test="skuIds!=null">
+				<foreach collection="skuIds" index="index" item="item"
+					open="and sppb.sp_SkuId in(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+		</where>
+	</select>
+
+</mapper>

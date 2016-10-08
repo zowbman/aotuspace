@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spuser.mapper.user.SpUsersBinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spuser.model.po.user.SpUsersBinfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+    <result column="sp_Account" property="spAccount" jdbcType="VARCHAR" />
+    <result column="sp_Password" property="spPassword" jdbcType="VARCHAR" />
+    <result column="sp_Identity" property="spIdentity" jdbcType="TINYINT" />
+    <result column="sp_ReDate" property="spRedate" jdbcType="TIMESTAMP" />
+    <result column="sp_RePlace" property="spReplace" jdbcType="VARCHAR" />
+    <result column="sp_ReIp" property="spReip" jdbcType="VARCHAR" />
+    <result column="sp_Status" property="spStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_AtuId, sp_Account, sp_Password, sp_Identity, sp_ReDate, sp_RePlace, sp_ReIp, 
+    sp_Status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_users_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_users_binfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfoKey" >
+    delete from sp_users_binfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfoExample" >
+    delete from sp_users_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfo" >
+    insert into sp_users_binfo (sp_id, sp_AtuId, sp_Account, 
+      sp_Password, sp_Identity, sp_ReDate, 
+      sp_RePlace, sp_ReIp, sp_Status
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spAtuid,jdbcType=INTEGER}, #{spAccount,jdbcType=VARCHAR}, 
+      #{spPassword,jdbcType=VARCHAR}, #{spIdentity,jdbcType=TINYINT}, #{spRedate,jdbcType=TIMESTAMP}, 
+      #{spReplace,jdbcType=VARCHAR}, #{spReip,jdbcType=VARCHAR}, #{spStatus,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfo" >
+  	<selectKey keyProperty="spId" order="AFTER" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+	</selectKey>
+    insert into sp_users_binfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spAtuid != null" >
+        sp_AtuId,
+      </if>
+      <if test="spAccount != null" >
+        sp_Account,
+      </if>
+      <if test="spPassword != null" >
+        sp_Password,
+      </if>
+      <if test="spIdentity != null" >
+        sp_Identity,
+      </if>
+      <if test="spRedate != null" >
+        sp_ReDate,
+      </if>
+      <if test="spReplace != null" >
+        sp_RePlace,
+      </if>
+      <if test="spReip != null" >
+        sp_ReIp,
+      </if>
+      <if test="spStatus != null" >
+        sp_Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spAtuid != null" >
+        #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spAccount != null" >
+        #{spAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="spPassword != null" >
+        #{spPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="spIdentity != null" >
+        #{spIdentity,jdbcType=TINYINT},
+      </if>
+      <if test="spRedate != null" >
+        #{spRedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spReplace != null" >
+        #{spReplace,jdbcType=VARCHAR},
+      </if>
+      <if test="spReip != null" >
+        #{spReip,jdbcType=VARCHAR},
+      </if>
+      <if test="spStatus != null" >
+        #{spStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_users_binfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_users_binfo
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAtuid != null" >
+        sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAccount != null" >
+        sp_Account = #{record.spAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPassword != null" >
+        sp_Password = #{record.spPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spIdentity != null" >
+        sp_Identity = #{record.spIdentity,jdbcType=TINYINT},
+      </if>
+      <if test="record.spRedate != null" >
+        sp_ReDate = #{record.spRedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spReplace != null" >
+        sp_RePlace = #{record.spReplace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spReip != null" >
+        sp_ReIp = #{record.spReip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spStatus != null" >
+        sp_Status = #{record.spStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_users_binfo
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      sp_Account = #{record.spAccount,jdbcType=VARCHAR},
+      sp_Password = #{record.spPassword,jdbcType=VARCHAR},
+      sp_Identity = #{record.spIdentity,jdbcType=TINYINT},
+      sp_ReDate = #{record.spRedate,jdbcType=TIMESTAMP},
+      sp_RePlace = #{record.spReplace,jdbcType=VARCHAR},
+      sp_ReIp = #{record.spReip,jdbcType=VARCHAR},
+      sp_Status = #{record.spStatus,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfo" >
+    update sp_users_binfo
+    <set >
+      <if test="spAccount != null" >
+        sp_Account = #{spAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="spPassword != null" >
+        sp_Password = #{spPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="spIdentity != null" >
+        sp_Identity = #{spIdentity,jdbcType=TINYINT},
+      </if>
+      <if test="spRedate != null" >
+        sp_ReDate = #{spRedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spReplace != null" >
+        sp_RePlace = #{spReplace,jdbcType=VARCHAR},
+      </if>
+      <if test="spReip != null" >
+        sp_ReIp = #{spReip,jdbcType=VARCHAR},
+      </if>
+      <if test="spStatus != null" >
+        sp_Status = #{spStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersBinfo" >
+    update sp_users_binfo
+    set sp_Account = #{spAccount,jdbcType=VARCHAR},
+      sp_Password = #{spPassword,jdbcType=VARCHAR},
+      sp_Identity = #{spIdentity,jdbcType=TINYINT},
+      sp_ReDate = #{spRedate,jdbcType=TIMESTAMP},
+      sp_RePlace = #{spReplace,jdbcType=VARCHAR},
+      sp_ReIp = #{spReip,jdbcType=VARCHAR},
+      sp_Status = #{spStatus,jdbcType=TINYINT}
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+</mapper>

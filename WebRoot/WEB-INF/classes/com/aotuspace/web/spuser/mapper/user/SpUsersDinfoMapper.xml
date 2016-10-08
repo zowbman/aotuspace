@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spuser.mapper.user.SpUsersDinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spuser.model.po.user.SpUsersDinfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <id column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+    <result column="sp_NickName" property="spNickname" jdbcType="VARCHAR" />
+    <result column="sp_Icon" property="spIcon" jdbcType="INTEGER" />
+    <result column="sp_RealName" property="spRealname" jdbcType="VARCHAR" />
+    <result column="sp_Sex" property="spSex" jdbcType="CHAR" />
+    <result column="sp_Birth" property="spBirth" jdbcType="TIMESTAMP" />
+    <result column="sp_Animal" property="spAnimal" jdbcType="TINYINT" />
+    <result column="sp_Age" property="spAge" jdbcType="TINYINT" />
+    <result column="sp_Con" property="spCon" jdbcType="TINYINT" />
+    <result column="sp_UserDistrict" property="spUserdistrict" jdbcType="VARCHAR" />
+    <result column="sp_Address" property="spAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_AtuId, sp_NickName, sp_Icon, sp_RealName, sp_Sex, sp_Birth, sp_Animal, 
+    sp_Age, sp_Con, sp_UserDistrict, sp_Address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_users_dinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfoKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_users_dinfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfoKey" >
+    delete from sp_users_dinfo
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfoExample" >
+    delete from sp_users_dinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfo" >
+    insert into sp_users_dinfo (sp_id, sp_AtuId, sp_NickName, 
+      sp_Icon, sp_RealName, sp_Sex, 
+      sp_Birth, sp_Animal, sp_Age, 
+      sp_Con, sp_UserDistrict, sp_Address
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spAtuid,jdbcType=INTEGER}, #{spNickname,jdbcType=VARCHAR}, 
+      #{spIcon,jdbcType=VARCHAR}, #{spRealname,jdbcType=VARCHAR}, #{spSex,jdbcType=CHAR}, 
+      #{spBirth,jdbcType=TIMESTAMP}, #{spAnimal,jdbcType=TINYINT}, #{spAge,jdbcType=TINYINT}, 
+      #{spCon,jdbcType=TINYINT}, #{spUserdistrict,jdbcType=VARCHAR}, #{spAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfo" >
+    insert into sp_users_dinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spAtuid != null" >
+        sp_AtuId,
+      </if>
+      <if test="spNickname != null" >
+        sp_NickName,
+      </if>
+      <if test="spIcon != null" >
+        sp_Icon,
+      </if>
+      <if test="spRealname != null" >
+        sp_RealName,
+      </if>
+      <if test="spSex != null" >
+        sp_Sex,
+      </if>
+      <if test="spBirth != null" >
+        sp_Birth,
+      </if>
+      <if test="spAnimal != null" >
+        sp_Animal,
+      </if>
+      <if test="spAge != null" >
+        sp_Age,
+      </if>
+      <if test="spCon != null" >
+        sp_Con,
+      </if>
+      <if test="spUserdistrict != null" >
+        sp_UserDistrict,
+      </if>
+      <if test="spAddress != null" >
+        sp_Address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spAtuid != null" >
+        #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spNickname != null" >
+        #{spNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="spIcon != null" >
+        #{spIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="spRealname != null" >
+        #{spRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="spSex != null" >
+        #{spSex,jdbcType=CHAR},
+      </if>
+      <if test="spBirth != null" >
+        #{spBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spAnimal != null" >
+        #{spAnimal,jdbcType=TINYINT},
+      </if>
+      <if test="spAge != null" >
+        #{spAge,jdbcType=TINYINT},
+      </if>
+      <if test="spCon != null" >
+        #{spCon,jdbcType=TINYINT},
+      </if>
+      <if test="spUserdistrict != null" >
+        #{spUserdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="spAddress != null" >
+        #{spAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_users_dinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_users_dinfo
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAtuid != null" >
+        sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spNickname != null" >
+        sp_NickName = #{record.spNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spIcon != null" >
+        sp_Icon = #{record.spIcon,jdbcType=INTEGER},
+      </if>
+      <if test="record.spRealname != null" >
+        sp_RealName = #{record.spRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spSex != null" >
+        sp_Sex = #{record.spSex,jdbcType=CHAR},
+      </if>
+      <if test="record.spBirth != null" >
+        sp_Birth = #{record.spBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spAnimal != null" >
+        sp_Animal = #{record.spAnimal,jdbcType=TINYINT},
+      </if>
+      <if test="record.spAge != null" >
+        sp_Age = #{record.spAge,jdbcType=TINYINT},
+      </if>
+      <if test="record.spCon != null" >
+        sp_Con = #{record.spCon,jdbcType=TINYINT},
+      </if>
+      <if test="record.spUserdistrict != null" >
+        sp_UserDistrict = #{record.spUserdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spAddress != null" >
+        sp_Address = #{record.spAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_users_dinfo
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      sp_NickName = #{record.spNickname,jdbcType=VARCHAR},
+      sp_Icon = #{record.spIcon,jdbcType=INTEGER},
+      sp_RealName = #{record.spRealname,jdbcType=VARCHAR},
+      sp_Sex = #{record.spSex,jdbcType=CHAR},
+      sp_Birth = #{record.spBirth,jdbcType=TIMESTAMP},
+      sp_Animal = #{record.spAnimal,jdbcType=TINYINT},
+      sp_Age = #{record.spAge,jdbcType=TINYINT},
+      sp_Con = #{record.spCon,jdbcType=TINYINT},
+      sp_UserDistrict = #{record.spUserdistrict,jdbcType=VARCHAR},
+      sp_Address = #{record.spAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfo" >
+    update sp_users_dinfo
+    <set >
+      <if test="spNickname != null" >
+        sp_NickName = #{spNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="spIcon != null" >
+        sp_Icon = #{spIcon,jdbcType=INTEGER},
+      </if>
+      <if test="spRealname != null" >
+        sp_RealName = #{spRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="spSex != null" >
+        sp_Sex = #{spSex,jdbcType=CHAR},
+      </if>
+      <if test="spBirth != null" >
+        sp_Birth = #{spBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spAnimal != null" >
+        sp_Animal = #{spAnimal,jdbcType=TINYINT},
+      </if>
+      <if test="spAge != null" >
+        sp_Age = #{spAge,jdbcType=TINYINT},
+      </if>
+      <if test="spCon != null" >
+        sp_Con = #{spCon,jdbcType=TINYINT},
+      </if>
+      <if test="spUserdistrict != null" >
+        sp_UserDistrict = #{spUserdistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="spAddress != null" >
+        sp_Address = #{spAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.user.SpUsersDinfo" >
+    update sp_users_dinfo
+    set sp_NickName = #{spNickname,jdbcType=VARCHAR},
+      sp_Icon = #{spIcon,jdbcType=INTEGER},
+      sp_RealName = #{spRealname,jdbcType=VARCHAR},
+      sp_Sex = #{spSex,jdbcType=CHAR},
+      sp_Birth = #{spBirth,jdbcType=TIMESTAMP},
+      sp_Animal = #{spAnimal,jdbcType=TINYINT},
+      sp_Age = #{spAge,jdbcType=TINYINT},
+      sp_Con = #{spCon,jdbcType=TINYINT},
+      sp_UserDistrict = #{spUserdistrict,jdbcType=VARCHAR},
+      sp_Address = #{spAddress,jdbcType=VARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+      and sp_AtuId = #{spAtuid,jdbcType=INTEGER}
+  </update>
+</mapper>

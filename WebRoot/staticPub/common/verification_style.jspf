@@ -1,0 +1,15 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/index_825aotu.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.validate.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/validate_expand.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/validate.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/share_825aotu.js"></script>
+<script language="javascript" type="text/javascript" src="${pageContext.request.contextPath }/js/vfc_cki.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+        initValidator();
+    });
+</script>

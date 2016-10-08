@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spgoods.mapper.product.custom.SpProductBinfoMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBinfoCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_PdSpu" property="spPdspu" jdbcType="VARCHAR" />
+		<result column="sp_BrandId" property="spBrandid" jdbcType="INTEGER" />
+		<result column="sp_PdTitle" property="spPdtitle" jdbcType="VARCHAR" />
+		<result column="sp_PdFeature" property="spPdfeature" jdbcType="VARCHAR" />
+		<result column="sp_PdImage" property="spPdimage" jdbcType="VARCHAR" />
+		<result column="sp_PdCreDate" property="spPdcredate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap
+		type="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBinfoCustom"
+		id="spProductBinfoResultMap" extends="BaseResultMap">
+		<!-- 品牌 -->
+		<association property="spProductBrands"
+			javaType="com.aotuspace.web.spgoods.model.po.product.SpProductBrands"
+			select="com.aotuspace.web.spgoods.mapper.product.SpProductBrandsMapper.selectByPrimaryKey"
+			column="sp_BrandId"></association>
+		<!-- 商品属性 -->
+		<collection property="spProductBpropertiesCustoms"
+			ofType="com.aotuspace.web.spgoods.model.po.product.custom.SpProductBpropertiesCustom"
+			select="com.aotuspace.web.spgoods.mapper.product.custom.SpProductBpropertiesMapperCustom.findSpProductBproCBySpPdId"
+			column="sp_id">
+		</collection>
+	</resultMap>
+
+	<!-- 根据sp_PdId查询 -->
+	<select id="findSpProductBinfoById" parameterType="java.lang.Integer"
+		resultMap="spProductBinfoResultMap">
+		SELECT * FROM sp_product_binfo sppb
+		<where>
+			<if test="value!=null">
+				AND sppb.sp_id=#{value}
+			</if>
+		</where>
+	</select>
+
+</mapper>

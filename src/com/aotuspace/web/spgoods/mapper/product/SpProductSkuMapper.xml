@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.product.SpProductSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.product.SpProductSku" >
+    <id column="sp_skuId" property="spSkuid" jdbcType="INTEGER" />
+    <result column="sp_PdId" property="spPdid" jdbcType="INTEGER" />
+    <result column="sp_PdCount" property="spPdcount" jdbcType="INTEGER" />
+    <result column="sp_PdPrice" property="spPdprice" jdbcType="DECIMAL" />
+    <result column="sp_PdStatus" property="spPdstatus" jdbcType="INTEGER" />
+    <result column="sp_SkuPropertiesName" property="spSkupropertiesname" jdbcType="VARCHAR" />
+    <result column="sp_SkuProperties" property="spSkuproperties" jdbcType="VARCHAR" />
+    <result column="sp_PdCreDate" property="spPdcredate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_skuId, sp_PdId, sp_PdCount, sp_PdPrice, sp_PdStatus, sp_SkuPropertiesName, sp_SkuProperties, 
+    sp_PdCreDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSkuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_product_sku
+    where sp_skuId = #{spSkuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_product_sku
+    where sp_skuId = #{spSkuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSkuExample" >
+    delete from sp_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSku" >
+    insert into sp_product_sku (sp_skuId, sp_PdId, sp_PdCount, 
+      sp_PdPrice, sp_PdStatus, sp_SkuPropertiesName, 
+      sp_SkuProperties, sp_PdCreDate)
+    values (#{spSkuid,jdbcType=INTEGER}, #{spPdid,jdbcType=INTEGER}, #{spPdcount,jdbcType=INTEGER}, 
+      #{spPdprice,jdbcType=DECIMAL}, #{spPdstatus,jdbcType=INTEGER}, #{spSkupropertiesname,jdbcType=VARCHAR}, 
+      #{spSkuproperties,jdbcType=VARCHAR}, #{spPdcredate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSku" >
+    insert into sp_product_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spSkuid != null" >
+        sp_skuId,
+      </if>
+      <if test="spPdid != null" >
+        sp_PdId,
+      </if>
+      <if test="spPdcount != null" >
+        sp_PdCount,
+      </if>
+      <if test="spPdprice != null" >
+        sp_PdPrice,
+      </if>
+      <if test="spPdstatus != null" >
+        sp_PdStatus,
+      </if>
+      <if test="spSkupropertiesname != null" >
+        sp_SkuPropertiesName,
+      </if>
+      <if test="spSkuproperties != null" >
+        sp_SkuProperties,
+      </if>
+      <if test="spPdcredate != null" >
+        sp_PdCreDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spSkuid != null" >
+        #{spSkuid,jdbcType=INTEGER},
+      </if>
+      <if test="spPdid != null" >
+        #{spPdid,jdbcType=INTEGER},
+      </if>
+      <if test="spPdcount != null" >
+        #{spPdcount,jdbcType=INTEGER},
+      </if>
+      <if test="spPdprice != null" >
+        #{spPdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="spPdstatus != null" >
+        #{spPdstatus,jdbcType=INTEGER},
+      </if>
+      <if test="spSkupropertiesname != null" >
+        #{spSkupropertiesname,jdbcType=VARCHAR},
+      </if>
+      <if test="spSkuproperties != null" >
+        #{spSkuproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdcredate != null" >
+        #{spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSkuExample" resultType="java.lang.Integer" >
+    select count(*) from sp_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_product_sku
+    <set >
+      <if test="record.spSkuid != null" >
+        sp_skuId = #{record.spSkuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPdid != null" >
+        sp_PdId = #{record.spPdid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPdcount != null" >
+        sp_PdCount = #{record.spPdcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.spPdprice != null" >
+        sp_PdPrice = #{record.spPdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spPdstatus != null" >
+        sp_PdStatus = #{record.spPdstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.spSkupropertiesname != null" >
+        sp_SkuPropertiesName = #{record.spSkupropertiesname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spSkuproperties != null" >
+        sp_SkuProperties = #{record.spSkuproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPdcredate != null" >
+        sp_PdCreDate = #{record.spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_product_sku
+    set sp_skuId = #{record.spSkuid,jdbcType=INTEGER},
+      sp_PdId = #{record.spPdid,jdbcType=INTEGER},
+      sp_PdCount = #{record.spPdcount,jdbcType=INTEGER},
+      sp_PdPrice = #{record.spPdprice,jdbcType=DECIMAL},
+      sp_PdStatus = #{record.spPdstatus,jdbcType=INTEGER},
+      sp_SkuPropertiesName = #{record.spSkupropertiesname,jdbcType=VARCHAR},
+      sp_SkuProperties = #{record.spSkuproperties,jdbcType=VARCHAR},
+      sp_PdCreDate = #{record.spPdcredate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSku" >
+    update sp_product_sku
+    <set >
+      <if test="spPdid != null" >
+        sp_PdId = #{spPdid,jdbcType=INTEGER},
+      </if>
+      <if test="spPdcount != null" >
+        sp_PdCount = #{spPdcount,jdbcType=INTEGER},
+      </if>
+      <if test="spPdprice != null" >
+        sp_PdPrice = #{spPdprice,jdbcType=DECIMAL},
+      </if>
+      <if test="spPdstatus != null" >
+        sp_PdStatus = #{spPdstatus,jdbcType=INTEGER},
+      </if>
+      <if test="spSkupropertiesname != null" >
+        sp_SkuPropertiesName = #{spSkupropertiesname,jdbcType=VARCHAR},
+      </if>
+      <if test="spSkuproperties != null" >
+        sp_SkuProperties = #{spSkuproperties,jdbcType=VARCHAR},
+      </if>
+      <if test="spPdcredate != null" >
+        sp_PdCreDate = #{spPdcredate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sp_skuId = #{spSkuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.product.SpProductSku" >
+    update sp_product_sku
+    set sp_PdId = #{spPdid,jdbcType=INTEGER},
+      sp_PdCount = #{spPdcount,jdbcType=INTEGER},
+      sp_PdPrice = #{spPdprice,jdbcType=DECIMAL},
+      sp_PdStatus = #{spPdstatus,jdbcType=INTEGER},
+      sp_SkuPropertiesName = #{spSkupropertiesname,jdbcType=VARCHAR},
+      sp_SkuProperties = #{spSkuproperties,jdbcType=VARCHAR},
+      sp_PdCreDate = #{spPdcredate,jdbcType=TIMESTAMP}
+    where sp_skuId = #{spSkuid,jdbcType=INTEGER}
+  </update>
+</mapper>

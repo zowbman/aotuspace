@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spuser.mapper.deliver.SpDeliverInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+    <result column="sp_Area" property="spArea" jdbcType="VARCHAR" />
+    <result column="sp_Address" property="spAddress" jdbcType="VARCHAR" />
+    <result column="sp_PostCode" property="spPostcode" jdbcType="VARCHAR" />
+    <result column="sp_Receiver" property="spReceiver" jdbcType="VARCHAR" />
+    <result column="sp_Mobie" property="spMobie" jdbcType="VARCHAR" />
+    <result column="sp_Telephone" property="spTelephone" jdbcType="VARCHAR" />
+    <result column="sp_IsDefault" property="spIsdefault" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_AtuId, sp_Area, sp_Address, sp_PostCode, sp_Receiver, sp_Mobie, sp_Telephone, 
+    sp_IsDefault
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_deliver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_deliver_info
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_deliver_info
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfoExample" >
+    delete from sp_deliver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfo" >
+    insert into sp_deliver_info (sp_id, sp_AtuId, sp_Area, 
+      sp_Address, sp_PostCode, sp_Receiver, 
+      sp_Mobie, sp_Telephone, sp_IsDefault
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spAtuid,jdbcType=INTEGER}, #{spArea,jdbcType=VARCHAR}, 
+      #{spAddress,jdbcType=VARCHAR}, #{spPostcode,jdbcType=VARCHAR}, #{spReceiver,jdbcType=VARCHAR}, 
+      #{spMobie,jdbcType=VARCHAR}, #{spTelephone,jdbcType=VARCHAR}, #{spIsdefault,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfo" >
+    insert into sp_deliver_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spAtuid != null" >
+        sp_AtuId,
+      </if>
+      <if test="spArea != null" >
+        sp_Area,
+      </if>
+      <if test="spAddress != null" >
+        sp_Address,
+      </if>
+      <if test="spPostcode != null" >
+        sp_PostCode,
+      </if>
+      <if test="spReceiver != null" >
+        sp_Receiver,
+      </if>
+      <if test="spMobie != null" >
+        sp_Mobie,
+      </if>
+      <if test="spTelephone != null" >
+        sp_Telephone,
+      </if>
+      <if test="spIsdefault != null" >
+        sp_IsDefault,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spAtuid != null" >
+        #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spArea != null" >
+        #{spArea,jdbcType=VARCHAR},
+      </if>
+      <if test="spAddress != null" >
+        #{spAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="spPostcode != null" >
+        #{spPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="spReceiver != null" >
+        #{spReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="spMobie != null" >
+        #{spMobie,jdbcType=VARCHAR},
+      </if>
+      <if test="spTelephone != null" >
+        #{spTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="spIsdefault != null" >
+        #{spIsdefault,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_deliver_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_deliver_info
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAtuid != null" >
+        sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spArea != null" >
+        sp_Area = #{record.spArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spAddress != null" >
+        sp_Address = #{record.spAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spPostcode != null" >
+        sp_PostCode = #{record.spPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spReceiver != null" >
+        sp_Receiver = #{record.spReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spMobie != null" >
+        sp_Mobie = #{record.spMobie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spTelephone != null" >
+        sp_Telephone = #{record.spTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spIsdefault != null" >
+        sp_IsDefault = #{record.spIsdefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_deliver_info
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      sp_Area = #{record.spArea,jdbcType=VARCHAR},
+      sp_Address = #{record.spAddress,jdbcType=VARCHAR},
+      sp_PostCode = #{record.spPostcode,jdbcType=VARCHAR},
+      sp_Receiver = #{record.spReceiver,jdbcType=VARCHAR},
+      sp_Mobie = #{record.spMobie,jdbcType=VARCHAR},
+      sp_Telephone = #{record.spTelephone,jdbcType=VARCHAR},
+      sp_IsDefault = #{record.spIsdefault,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfo" >
+    update sp_deliver_info
+    <set >
+      <if test="spAtuid != null" >
+        sp_AtuId = #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spArea != null" >
+        sp_Area = #{spArea,jdbcType=VARCHAR},
+      </if>
+      <if test="spAddress != null" >
+        sp_Address = #{spAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="spPostcode != null" >
+        sp_PostCode = #{spPostcode,jdbcType=VARCHAR},
+      </if>
+      <if test="spReceiver != null" >
+        sp_Receiver = #{spReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="spMobie != null" >
+        sp_Mobie = #{spMobie,jdbcType=VARCHAR},
+      </if>
+      <if test="spTelephone != null" >
+        sp_Telephone = #{spTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="spIsdefault != null" >
+        sp_IsDefault = #{spIsdefault,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.deliver.SpDeliverInfo" >
+    update sp_deliver_info
+    set sp_AtuId = #{spAtuid,jdbcType=INTEGER},
+      sp_Area = #{spArea,jdbcType=VARCHAR},
+      sp_Address = #{spAddress,jdbcType=VARCHAR},
+      sp_PostCode = #{spPostcode,jdbcType=VARCHAR},
+      sp_Receiver = #{spReceiver,jdbcType=VARCHAR},
+      sp_Mobie = #{spMobie,jdbcType=VARCHAR},
+      sp_Telephone = #{spTelephone,jdbcType=VARCHAR},
+      sp_IsDefault = #{spIsdefault,jdbcType=INTEGER}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

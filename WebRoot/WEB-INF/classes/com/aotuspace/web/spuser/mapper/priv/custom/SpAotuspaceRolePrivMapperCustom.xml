@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspaceRolePrivMapperCustom">
+	<resultMap id="BaseResultMap"
+		type="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceRolePrivCustom">
+		<id column="sp_id" property="spId" jdbcType="INTEGER" />
+		<result column="sp_RoleId" property="spRoleid" jdbcType="INTEGER" />
+		<result column="sp_PrivId" property="spPrivid" jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap
+		type="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspaceRolePrivCustom"
+		id="spRolePrivResultMap" extends="BaseResultMap">
+		<collection property="spAotuspacePrivCustoms"
+			ofType="com.aotuspace.web.spuser.model.po.priv.custom.SpAotuspacePrivCustom"
+			select="com.aotuspace.web.spuser.mapper.priv.custom.SpAotuspacePrivMapperCustom.findPrivsByUserId"
+			column="sp_PrivId" fetchType="eager"></collection>
+	</resultMap>
+
+	<!-- 权限模块根据RoleId查询权限 -->
+	<select id="findPrivsByRoleId" parameterType="java.lang.Integer" resultMap="spRolePrivResultMap">
+		SELECT * FROM sp_aotuspace_role_priv sprp
+		<where>
+			<if test="value!=null">
+				AND sprp.sp_RoleId=#{value}
+			</if>
+		</where>
+	</select>
+
+</mapper>

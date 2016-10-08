@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 定义用户信息管理service -->
+    <!-- 可以使用注解方式spring进行扫描bean -->
+    <!-- 用户service -->
+    <bean id="iSpUsersService" class="com.aotuspace.web.spuser.service.impl.SpUsersServiceImpl"></bean>
+    <!-- 权限service -->
+    <bean id="iSpPrivilegeService" class="com.aotuspace.web.spuser.service.impl.SpPrivilegeServiceImpl"></bean>
+    <!-- 获取ipservice -->
+    <bean id="iGetClientInfoService" class="com.aotuspace.web.global.clientinfo.service.impl.GetClientInfoServiceImpl"></bean>
+    <!-- 商品service -->
+    <bean id="iSpGoodsService" class="com.aotuspace.web.spgoods.service.impl.SpGoodsServiceImpl"></bean>
+    <!-- 银行service -->
+    <bean id="iSpBankService" class="com.aotuspace.web.spdictionary.service.bank.impl.SpBankServiceImpl"></bean>
+    <!-- 代言申请service -->
+    <bean id="iSpRepresentService" class="com.aotuspace.web.spuser.service.impl.SpRepresentServiceImpl"></bean>
+    <!-- 直播平台service -->
+    <bean id="iSpLiveStationService" class="com.aotuspace.web.spdictionary.service.livestation.impl.SpLiveStationServiceImpl"></bean>
+    <!-- 商品图片service -->
+    <bean id="iSpGoodsImgService" class="com.aotuspace.web.spgoods.service.impl.SpGoodsImgServiceImpl"></bean>
+    <!-- 收货地址service -->
+    <bean id="iSpDeliverService" class="com.aotuspace.web.spuser.service.impl.SpDeliverServiceImpl"></bean>
+    <!-- 省市区service -->
+    <bean id="iSpAreaService" class="com.aotuspace.web.spdictionary.service.area.impl.SpAreaServiceImpl"></bean>
+    
+    
+</beans>

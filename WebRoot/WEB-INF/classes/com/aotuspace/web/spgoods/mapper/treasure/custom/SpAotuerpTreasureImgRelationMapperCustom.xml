@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.treasure.custom.SpAotuerpTreasureImgRelationMapperCustom" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureImgRelationCustom" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_TreasureId" property="spTreasureid" jdbcType="INTEGER" />
+    <result column="sp_TreasureImgId" property="spTreasureimgid" jdbcType="INTEGER" />
+  </resultMap>
+
+   <resultMap
+		type="com.aotuspace.web.spgoods.model.po.treasure.custom.SpAotuerpTreasureImgRelationCustom"
+		id="spTreasureInfoImgResultMap" extends="BaseResultMap">
+		<collection property="spAotuerpTreasureImgs"
+			ofType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureImg"
+			select="com.aotuspace.web.spgoods.mapper.treasure.SpAotuerpTreasureImgMapper.selectByPrimaryKey"
+			column="sp_TreasureImgId" fetchType="eager"></collection>
+	</resultMap>
+
+	<!-- 宝贝图片spTreasureId查询sp_TreasureImgId -->
+	<select id="findImgsByTreasureId" parameterType="java.lang.Integer"
+		resultMap="spTreasureInfoImgResultMap">
+		SELECT * FROM sp_aotuerp_treasure_img_relation spatir
+		<where>
+			<if test="value!=null">
+				AND spatir.sp_TreasureId=#{value}
+			</if>
+		</where>
+	</select>
+  
+  
+  
+</mapper>

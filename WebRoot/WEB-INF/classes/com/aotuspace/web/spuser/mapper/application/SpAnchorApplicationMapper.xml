@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spuser.mapper.application.SpAnchorApplicationMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spuser.model.po.application.SpAnchorApplication" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_AtuId" property="spAtuid" jdbcType="INTEGER" />
+    <result column="sp_LiStation" property="spListation" jdbcType="TINYINT" />
+    <result column="sp_LiSrc" property="spLisrc" jdbcType="VARCHAR" />
+    <result column="sp_LiNickName" property="spLinickname" jdbcType="VARCHAR" />
+    <result column="sp_LiScreenSort" property="spLiscreensort" jdbcType="VARCHAR" />
+    <result column="sp_ApplicationDetailId" property="spApplicationdetailid" jdbcType="INTEGER" />
+    <result column="sp_AppResult" property="spAppresult" jdbcType="INTEGER" />
+    <result column="sp_ApplyDate" property="spApplydate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_AtuId, sp_LiStation, sp_LiSrc, sp_LiNickName, sp_LiScreenSort, sp_ApplicationDetailId, 
+    sp_AppResult, sp_ApplyDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplicationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_anchor_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_anchor_application
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_anchor_application
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplicationExample" >
+    delete from sp_anchor_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplication" >
+    insert into sp_anchor_application (sp_id, sp_AtuId, sp_LiStation, 
+      sp_LiSrc, sp_LiNickName, sp_LiScreenSort, 
+      sp_ApplicationDetailId, sp_AppResult, sp_ApplyDate
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spAtuid,jdbcType=INTEGER}, #{spListation,jdbcType=TINYINT}, 
+      #{spLisrc,jdbcType=VARCHAR}, #{spLinickname,jdbcType=VARCHAR}, #{spLiscreensort,jdbcType=VARCHAR}, 
+      #{spApplicationdetailid,jdbcType=INTEGER}, #{spAppresult,jdbcType=INTEGER}, #{spApplydate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplication" >
+    insert into sp_anchor_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spAtuid != null" >
+        sp_AtuId,
+      </if>
+      <if test="spListation != null" >
+        sp_LiStation,
+      </if>
+      <if test="spLisrc != null" >
+        sp_LiSrc,
+      </if>
+      <if test="spLinickname != null" >
+        sp_LiNickName,
+      </if>
+      <if test="spLiscreensort != null" >
+        sp_LiScreenSort,
+      </if>
+      <if test="spApplicationdetailid != null" >
+        sp_ApplicationDetailId,
+      </if>
+      <if test="spAppresult != null" >
+        sp_AppResult,
+      </if>
+      <if test="spApplydate != null" >
+        sp_ApplyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spAtuid != null" >
+        #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spListation != null" >
+        #{spListation,jdbcType=TINYINT},
+      </if>
+      <if test="spLisrc != null" >
+        #{spLisrc,jdbcType=VARCHAR},
+      </if>
+      <if test="spLinickname != null" >
+        #{spLinickname,jdbcType=VARCHAR},
+      </if>
+      <if test="spLiscreensort != null" >
+        #{spLiscreensort,jdbcType=VARCHAR},
+      </if>
+      <if test="spApplicationdetailid != null" >
+        #{spApplicationdetailid,jdbcType=INTEGER},
+      </if>
+      <if test="spAppresult != null" >
+        #{spAppresult,jdbcType=INTEGER},
+      </if>
+      <if test="spApplydate != null" >
+        #{spApplydate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplicationExample" resultType="java.lang.Integer" >
+    select count(*) from sp_anchor_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_anchor_application
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAtuid != null" >
+        sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spListation != null" >
+        sp_LiStation = #{record.spListation,jdbcType=TINYINT},
+      </if>
+      <if test="record.spLisrc != null" >
+        sp_LiSrc = #{record.spLisrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spLinickname != null" >
+        sp_LiNickName = #{record.spLinickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spLiscreensort != null" >
+        sp_LiScreenSort = #{record.spLiscreensort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spApplicationdetailid != null" >
+        sp_ApplicationDetailId = #{record.spApplicationdetailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spAppresult != null" >
+        sp_AppResult = #{record.spAppresult,jdbcType=INTEGER},
+      </if>
+      <if test="record.spApplydate != null" >
+        sp_ApplyDate = #{record.spApplydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_anchor_application
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_AtuId = #{record.spAtuid,jdbcType=INTEGER},
+      sp_LiStation = #{record.spListation,jdbcType=TINYINT},
+      sp_LiSrc = #{record.spLisrc,jdbcType=VARCHAR},
+      sp_LiNickName = #{record.spLinickname,jdbcType=VARCHAR},
+      sp_LiScreenSort = #{record.spLiscreensort,jdbcType=VARCHAR},
+      sp_ApplicationDetailId = #{record.spApplicationdetailid,jdbcType=INTEGER},
+      sp_AppResult = #{record.spAppresult,jdbcType=INTEGER},
+      sp_ApplyDate = #{record.spApplydate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplication" >
+    update sp_anchor_application
+    <set >
+      <if test="spAtuid != null" >
+        sp_AtuId = #{spAtuid,jdbcType=INTEGER},
+      </if>
+      <if test="spListation != null" >
+        sp_LiStation = #{spListation,jdbcType=TINYINT},
+      </if>
+      <if test="spLisrc != null" >
+        sp_LiSrc = #{spLisrc,jdbcType=VARCHAR},
+      </if>
+      <if test="spLinickname != null" >
+        sp_LiNickName = #{spLinickname,jdbcType=VARCHAR},
+      </if>
+      <if test="spLiscreensort != null" >
+        sp_LiScreenSort = #{spLiscreensort,jdbcType=VARCHAR},
+      </if>
+      <if test="spApplicationdetailid != null" >
+        sp_ApplicationDetailId = #{spApplicationdetailid,jdbcType=INTEGER},
+      </if>
+      <if test="spAppresult != null" >
+        sp_AppResult = #{spAppresult,jdbcType=INTEGER},
+      </if>
+      <if test="spApplydate != null" >
+        sp_ApplyDate = #{spApplydate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spuser.model.po.application.SpAnchorApplication" >
+    update sp_anchor_application
+    set sp_AtuId = #{spAtuid,jdbcType=INTEGER},
+      sp_LiStation = #{spListation,jdbcType=TINYINT},
+      sp_LiSrc = #{spLisrc,jdbcType=VARCHAR},
+      sp_LiNickName = #{spLinickname,jdbcType=VARCHAR},
+      sp_LiScreenSort = #{spLiscreensort,jdbcType=VARCHAR},
+      sp_ApplicationDetailId = #{spApplicationdetailid,jdbcType=INTEGER},
+      sp_AppResult = #{spAppresult,jdbcType=INTEGER},
+      sp_ApplyDate = #{spApplydate,jdbcType=TIMESTAMP}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

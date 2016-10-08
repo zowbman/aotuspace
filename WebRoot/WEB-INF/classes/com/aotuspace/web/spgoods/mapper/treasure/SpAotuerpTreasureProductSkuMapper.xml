@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.treasure.SpAotuerpTreasureProductSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSku" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_TreasureId" property="spTreasureid" jdbcType="INTEGER" />
+    <result column="sp_SkuId" property="spSkuid" jdbcType="INTEGER" />
+    <result column="sp_SalesPrice" property="spSalesprice" jdbcType="DECIMAL" />
+    <result column="sp_SalesQuantity" property="spSalesquantity" jdbcType="INTEGER" />
+    <result column="sp_SalesOrderQuantity" property="spSalesorderquantity" jdbcType="INTEGER" />
+    <result column="sp_TotalPrice" property="spTotalprice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_TreasureId, sp_SkuId, sp_SalesPrice, sp_SalesQuantity, sp_SalesOrderQuantity, 
+    sp_TotalPrice
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSkuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_aotuerp_treasure_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sp_aotuerp_treasure_product_sku
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_aotuerp_treasure_product_sku
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSkuExample" >
+    delete from sp_aotuerp_treasure_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSku" >
+    insert into sp_aotuerp_treasure_product_sku (sp_id, sp_TreasureId, sp_SkuId, 
+      sp_SalesPrice, sp_SalesQuantity, sp_SalesOrderQuantity, 
+      sp_TotalPrice)
+    values (#{spId,jdbcType=INTEGER}, #{spTreasureid,jdbcType=INTEGER}, #{spSkuid,jdbcType=INTEGER}, 
+      #{spSalesprice,jdbcType=DECIMAL}, #{spSalesquantity,jdbcType=INTEGER}, #{spSalesorderquantity,jdbcType=INTEGER}, 
+      #{spTotalprice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSku" >
+    insert into sp_aotuerp_treasure_product_sku
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spTreasureid != null" >
+        sp_TreasureId,
+      </if>
+      <if test="spSkuid != null" >
+        sp_SkuId,
+      </if>
+      <if test="spSalesprice != null" >
+        sp_SalesPrice,
+      </if>
+      <if test="spSalesquantity != null" >
+        sp_SalesQuantity,
+      </if>
+      <if test="spSalesorderquantity != null" >
+        sp_SalesOrderQuantity,
+      </if>
+      <if test="spTotalprice != null" >
+        sp_TotalPrice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasureid != null" >
+        #{spTreasureid,jdbcType=INTEGER},
+      </if>
+      <if test="spSkuid != null" >
+        #{spSkuid,jdbcType=INTEGER},
+      </if>
+      <if test="spSalesprice != null" >
+        #{spSalesprice,jdbcType=DECIMAL},
+      </if>
+      <if test="spSalesquantity != null" >
+        #{spSalesquantity,jdbcType=INTEGER},
+      </if>
+      <if test="spSalesorderquantity != null" >
+        #{spSalesorderquantity,jdbcType=INTEGER},
+      </if>
+      <if test="spTotalprice != null" >
+        #{spTotalprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSkuExample" resultType="java.lang.Integer" >
+    select count(*) from sp_aotuerp_treasure_product_sku
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_aotuerp_treasure_product_sku
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTreasureid != null" >
+        sp_TreasureId = #{record.spTreasureid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spSkuid != null" >
+        sp_SkuId = #{record.spSkuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spSalesprice != null" >
+        sp_SalesPrice = #{record.spSalesprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.spSalesquantity != null" >
+        sp_SalesQuantity = #{record.spSalesquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.spSalesorderquantity != null" >
+        sp_SalesOrderQuantity = #{record.spSalesorderquantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTotalprice != null" >
+        sp_TotalPrice = #{record.spTotalprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_aotuerp_treasure_product_sku
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_TreasureId = #{record.spTreasureid,jdbcType=INTEGER},
+      sp_SkuId = #{record.spSkuid,jdbcType=INTEGER},
+      sp_SalesPrice = #{record.spSalesprice,jdbcType=DECIMAL},
+      sp_SalesQuantity = #{record.spSalesquantity,jdbcType=INTEGER},
+      sp_SalesOrderQuantity = #{record.spSalesorderquantity,jdbcType=INTEGER},
+      sp_TotalPrice = #{record.spTotalprice,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSku" >
+    update sp_aotuerp_treasure_product_sku
+    <set >
+      <if test="spTreasureid != null" >
+        sp_TreasureId = #{spTreasureid,jdbcType=INTEGER},
+      </if>
+      <if test="spSkuid != null" >
+        sp_SkuId = #{spSkuid,jdbcType=INTEGER},
+      </if>
+      <if test="spSalesprice != null" >
+        sp_SalesPrice = #{spSalesprice,jdbcType=DECIMAL},
+      </if>
+      <if test="spSalesquantity != null" >
+        sp_SalesQuantity = #{spSalesquantity,jdbcType=INTEGER},
+      </if>
+      <if test="spSalesorderquantity != null" >
+        sp_SalesOrderQuantity = #{spSalesorderquantity,jdbcType=INTEGER},
+      </if>
+      <if test="spTotalprice != null" >
+        sp_TotalPrice = #{spTotalprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureProductSku" >
+    update sp_aotuerp_treasure_product_sku
+    set sp_TreasureId = #{spTreasureid,jdbcType=INTEGER},
+      sp_SkuId = #{spSkuid,jdbcType=INTEGER},
+      sp_SalesPrice = #{spSalesprice,jdbcType=DECIMAL},
+      sp_SalesQuantity = #{spSalesquantity,jdbcType=INTEGER},
+      sp_SalesOrderQuantity = #{spSalesorderquantity,jdbcType=INTEGER},
+      sp_TotalPrice = #{spTotalprice,jdbcType=DECIMAL}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>

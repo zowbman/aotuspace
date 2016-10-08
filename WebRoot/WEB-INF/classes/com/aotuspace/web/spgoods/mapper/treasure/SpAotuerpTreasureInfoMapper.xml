@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aotuspace.web.spgoods.mapper.treasure.SpAotuerpTreasureInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    <id column="sp_id" property="spId" jdbcType="INTEGER" />
+    <result column="sp_TreasureTitle" property="spTreasuretitle" jdbcType="VARCHAR" />
+    <result column="sp_TreasureSellingPoints" property="spTreasuresellingpoints" jdbcType="VARCHAR" />
+    <result column="sp_ProductId" property="spProductid" jdbcType="INTEGER" />
+    <result column="sp_TreasureStatusId" property="spTreasurestatusid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" extends="BaseResultMap" >
+    <result column="sp_TreasureDescription" property="spTreasuredescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sp_id, sp_TreasureTitle, sp_TreasureSellingPoints, sp_ProductId, sp_TreasureStatusId
+  </sql>
+  <sql id="Blob_Column_List" >
+    sp_TreasureDescription
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sp_aotuerp_treasure_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_aotuerp_treasure_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sp_aotuerp_treasure_info
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sp_aotuerp_treasure_info
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfoExample" >
+    delete from sp_aotuerp_treasure_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    insert into sp_aotuerp_treasure_info (sp_id, sp_TreasureTitle, sp_TreasureSellingPoints, 
+      sp_ProductId, sp_TreasureStatusId, sp_TreasureDescription
+      )
+    values (#{spId,jdbcType=INTEGER}, #{spTreasuretitle,jdbcType=VARCHAR}, #{spTreasuresellingpoints,jdbcType=VARCHAR}, 
+      #{spProductid,jdbcType=INTEGER}, #{spTreasurestatusid,jdbcType=INTEGER}, #{spTreasuredescription,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    insert into sp_aotuerp_treasure_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        sp_id,
+      </if>
+      <if test="spTreasuretitle != null" >
+        sp_TreasureTitle,
+      </if>
+      <if test="spTreasuresellingpoints != null" >
+        sp_TreasureSellingPoints,
+      </if>
+      <if test="spProductid != null" >
+        sp_ProductId,
+      </if>
+      <if test="spTreasurestatusid != null" >
+        sp_TreasureStatusId,
+      </if>
+      <if test="spTreasuredescription != null" >
+        sp_TreasureDescription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="spId != null" >
+        #{spId,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasuretitle != null" >
+        #{spTreasuretitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spTreasuresellingpoints != null" >
+        #{spTreasuresellingpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="spProductid != null" >
+        #{spProductid,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasurestatusid != null" >
+        #{spTreasurestatusid,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasuredescription != null" >
+        #{spTreasuredescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfoExample" resultType="java.lang.Integer" >
+    select count(*) from sp_aotuerp_treasure_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sp_aotuerp_treasure_info
+    <set >
+      <if test="record.spId != null" >
+        sp_id = #{record.spId,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTreasuretitle != null" >
+        sp_TreasureTitle = #{record.spTreasuretitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spTreasuresellingpoints != null" >
+        sp_TreasureSellingPoints = #{record.spTreasuresellingpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spProductid != null" >
+        sp_ProductId = #{record.spProductid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTreasurestatusid != null" >
+        sp_TreasureStatusId = #{record.spTreasurestatusid,jdbcType=INTEGER},
+      </if>
+      <if test="record.spTreasuredescription != null" >
+        sp_TreasureDescription = #{record.spTreasuredescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sp_aotuerp_treasure_info
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_TreasureTitle = #{record.spTreasuretitle,jdbcType=VARCHAR},
+      sp_TreasureSellingPoints = #{record.spTreasuresellingpoints,jdbcType=VARCHAR},
+      sp_ProductId = #{record.spProductid,jdbcType=INTEGER},
+      sp_TreasureStatusId = #{record.spTreasurestatusid,jdbcType=INTEGER},
+      sp_TreasureDescription = #{record.spTreasuredescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sp_aotuerp_treasure_info
+    set sp_id = #{record.spId,jdbcType=INTEGER},
+      sp_TreasureTitle = #{record.spTreasuretitle,jdbcType=VARCHAR},
+      sp_TreasureSellingPoints = #{record.spTreasuresellingpoints,jdbcType=VARCHAR},
+      sp_ProductId = #{record.spProductid,jdbcType=INTEGER},
+      sp_TreasureStatusId = #{record.spTreasurestatusid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    update sp_aotuerp_treasure_info
+    <set >
+      <if test="spTreasuretitle != null" >
+        sp_TreasureTitle = #{spTreasuretitle,jdbcType=VARCHAR},
+      </if>
+      <if test="spTreasuresellingpoints != null" >
+        sp_TreasureSellingPoints = #{spTreasuresellingpoints,jdbcType=VARCHAR},
+      </if>
+      <if test="spProductid != null" >
+        sp_ProductId = #{spProductid,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasurestatusid != null" >
+        sp_TreasureStatusId = #{spTreasurestatusid,jdbcType=INTEGER},
+      </if>
+      <if test="spTreasuredescription != null" >
+        sp_TreasureDescription = #{spTreasuredescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    update sp_aotuerp_treasure_info
+    set sp_TreasureTitle = #{spTreasuretitle,jdbcType=VARCHAR},
+      sp_TreasureSellingPoints = #{spTreasuresellingpoints,jdbcType=VARCHAR},
+      sp_ProductId = #{spProductid,jdbcType=INTEGER},
+      sp_TreasureStatusId = #{spTreasurestatusid,jdbcType=INTEGER},
+      sp_TreasureDescription = #{spTreasuredescription,jdbcType=LONGVARCHAR}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aotuspace.web.spgoods.model.po.treasure.SpAotuerpTreasureInfo" >
+    update sp_aotuerp_treasure_info
+    set sp_TreasureTitle = #{spTreasuretitle,jdbcType=VARCHAR},
+      sp_TreasureSellingPoints = #{spTreasuresellingpoints,jdbcType=VARCHAR},
+      sp_ProductId = #{spProductid,jdbcType=INTEGER},
+      sp_TreasureStatusId = #{spTreasurestatusid,jdbcType=INTEGER}
+    where sp_id = #{spId,jdbcType=INTEGER}
+  </update>
+</mapper>
